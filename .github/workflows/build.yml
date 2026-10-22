@@ -1,4 +1,5 @@
 name: Build Codebook
+
 on:
   push:
     branches: [main]
@@ -7,22 +8,27 @@ on:
       - 'codebook/**'
       - '!codebook/codebook.pdf'
   workflow_dispatch:
+
 permissions:
   contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Compile LaTeX
         uses: xu-cheng/latex-action@v3
         with:
           working_directory: codebook
           root_file: codebook.tex
-          latexmk_use_pdflatex: true
           args: -pdf -synctex=1 -interaction=nonstopmode
-      - name: Commit PDF
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Auto-build codebook PDF"
-          file_pattern: codebook/codebook.pdf
+
+      - name: Commit and Push PDF
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f codebook/codebook.pdf
+          git commit -m "Auto-build codebook PDF [skip ci]" || echo "No changes to commit"
+          git push
