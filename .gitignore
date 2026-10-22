@@ -1,0 +1,31 @@
+# Output
+codebook/codebook.pdf
+
+# LaTeX intermediate files
+*.aux
+*.bbl
+*.blg
+*.brf
+*.fls
+*.fdb_latexmk
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.synctex.gz
+*.lot
+*.lof
+*.idx
+*.ilg
+*.ind
+*.xdy
+*.dvi
+*.gz
+*.synctex
+
+# Editor
+.vscode
+
+# Mac
+.DS_Store

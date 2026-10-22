@@ -1,0 +1,205 @@
+\usepackage[hmargin=0.8cm, vmargin={1cm, 0.8cm}]{geometry}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{bookmark}
+\usepackage{hyperref}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumitem}
+
+% for codeWithDescription
+\usepackage{xparse}
+\usepackage{wrapfig}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+% For colorful output.
+% Color definitions
+\definecolor{cpcomment}{RGB}{34, 139, 34}      % Green
+\definecolor{cpkeyword}{RGB}{0, 0, 255}        % Blue
+\definecolor{cpstring}{RGB}{163, 21, 21}       % Red/Brown
+\definecolor{cpnumber}{RGB}{120, 120, 120}     % Gray
+
+\lstset{
+    language=C++,
+    basicstyle=\ttfamily\scriptsize,           % Compact code size
+    keywordstyle=\color{cpkeyword}\bfseries,
+    commentstyle=\color{cpcomment}\itshape,
+    stringstyle=\color{cpstring},
+    numberstyle=\tiny\color{cpnumber},
+    numbers=left,
+    numbersep=5pt,
+    tabsize=2,
+    breaklines=true,
+    breakatwhitespace=false,
+    showstringspaces=false,
+    keepspaces=true,
+    columns=flexible
+}
+
+% Define a color for codes
+\definecolor{codecolor}{rgb}{0.1,0.1,0.1}
+
+\lstset{
+  basicstyle=\ttfamily\small\color{codecolor},
+  keepspaces=true,
+  breaklines=true,
+  breakatwhitespace=false,
+  tabsize=2,
+  showstringspaces=false,
+  emptylines=*0,
+  numbers=none,
+  aboveskip=5pt,
+  columns=flexible,
+  linewidth=\linewidth,
+  xrightmargin=2pt
+}
+
+
+% Set coloumn dividers
+\setlength{\columnseprule}{0.2pt} % Multicol separation line with
+\setlength{\columnsep}{15pt} % Multicol separation margin
+
+% Compact TOC
+\renewcommand{\cfttoctitlefont}{\large\bfseries} % small TOC title
+\renewcommand{\contentsname}{} % remove "Contents"
+\setcounter{tocdepth}{1}
+\setlength{\cftsecnumwidth}{2.7em}      % Width for section numbers (e.g., 1.3, 10.11)
+
+\hypersetup{
+    colorlinks=true,      % False: boxed links; True: colored text
+    linkcolor=black,      % For a codebook, black is best for printing
+    urlcolor=blue,        % Keep URLs blue if you have them
+    pdftitle={SUST_Ragebait_Tree},
+}
+
+% Author block
+\setlength{\cftbeforetoctitleskip}{-1em}
+\setlength{\cftaftertoctitleskip}{0em}
+
+\makeatletter % <--- Start "At Letter" mode
+\renewcommand{\chapter}{
+ \global\@topnum\z@
+ \secdef
+ \@chapter
+ \@schapter
+}
+\makeatother % <--- End "At Letter" mode
+
+
+% --- Chapter style ---
+\titleformat{\chapter}[block]
+ {\Large\bfseries} % font size + bold
+ {}                % no "Chapter X"
+ {0pt}             % no extra spacing
+ {\thechapter\quad} % (remove if you don't want numbers at all)
+
+\titlespacing*{\chapter}
+ {0pt}   % left margin
+ {1em}   % space before
+ {0.5em} % space after
+
+% --- Section style (small, not bold, no rule) ---
+\titleformat{\section}[block]
+ {\bfseries\normalsize} % font: normal, not bold
+ {} % no label/number in front
+ {0pt} % no separation
+ {\thesection\quad} % just print the title
+ [\titleline{\rule{\linewidth}{0.2pt}}]
+
+ % --- Subsection: Small, Bold, No Rule ---
+\titleformat{\subsection}[block]
+  {\bfseries\small} % Slightly smaller than section
+  {}
+  {0pt}
+  {\thesubsection\quad}
+
+% --- Subsubsection: Normal font, Bold, In-line ---
+% This "runin" style puts the text on the same line as the title to save vertical space
+\titleformat{\subsubsection}[runin]
+  {\bfseries\small}
+  {}
+  {0pt}
+  {\thesubsubsection\quad}
+  [:\quad] % Adds a colon and space after the subsubsection title
+
+% page number at top right
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\thepage}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyheadoffset{0pt}
+\fancyfootoffset{0pt}
+\setlength\headsep{5pt}
+\setlength{\headheight}{30pt}
+
+\fancypagestyle{plain}{%
+ \fancyhf{}
+ \fancyhead[R]{\thepage}
+}
+
+% Usage: \startcode{folder/file.cpp}
+\newcommand{\code}[2]{%
+  \section{#1}
+  \vspace{-1em}
+  \lstinputlisting{../code_library/#2}%
+}
+
+\newlength{\cwdImgWidth}
+\setlength{\cwdImgWidth}{0.1\linewidth}
+
+% \codeWithDescription{Title}{filepath}[Description][Image][Usage]
+\NewDocumentCommand{\codeWithDescription}{ m m o o o }{%
+  \section{#1}%
+  \vspace{-0.5em}%
+  %
+  \IfValueT{#3}{%
+    \noindent\begin{minipage}{\linewidth}%
+      % --- Description + optional image ---
+      \IfValueTF{#4}{%
+        \if\relax\detokenize{#4}\relax
+          % empty image arg → full-width description
+          \noindent\footnotesize\textbf{Description:} #3\par
+        \else
+          % description on left, image on right
+          \noindent
+          \begin{minipage}[t]{\dimexpr\linewidth-\cwdImgWidth-0.5em\relax}%
+            \vspace{0pt}%
+            \footnotesize\textbf{Description:} #3%
+          \end{minipage}%
+          \hspace{0.3em}%
+          \begin{minipage}[t]{\cwdImgWidth}%
+            \vspace{0pt}%
+            \includegraphics[width=\linewidth]{#4}%
+          \end{minipage}%
+          \par
+        \fi
+      }{%
+        \noindent\footnotesize\textbf{Description:} #3\par
+      }%
+      \vspace{0.2em}%
+      % --- Optional usage ---
+      \IfValueT{#5}{%
+        \noindent\footnotesize\textbf{Usage:}\\
+        \indent\texttt{\footnotesize\detokenize{#5}}\par
+        \vspace{0.2em}%
+      }%
+    \end{minipage}%
+    \par\vspace{0.2em}%
+  }%
+  %
+  \noindent{\color{lightgray}\rule{\linewidth}{0.2pt}}%
+  \vspace*{-0.5em}%
+  \lstinputlisting{../code_library/#2}%
+  \vspace*{-1.5em}%
+  \par
+}
