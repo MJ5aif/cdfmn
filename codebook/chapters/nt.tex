@@ -32,7 +32,7 @@ the function returns all solution pairs $(x,y)$. (Check formulae for more detail
 %  \textbf{Time:} 7 times the complexity of $a^b \mod c$.]
 % []
 
-\codeWithDescription{Miller Rabin & Pollar Rho}{nt/pollard_rho.cpp}
+\codeWithDescription{Miller Rabin \& Pollar Rho}{nt/pollard_rho.cpp}
 [Pollard-rho randomized factorization algorithm. Returns prime
  factors of a number, in arbitrary order (e.g. 2299 -> \{11, 19, 11\}).
  Time: $O(n^{1/4})$, less for numbers with small factors.
@@ -41,7 +41,7 @@ the function returns all solution pairs $(x,y)$. (Check formulae for more detail
 \codeWithDescription{Mod Square Root}{nt/modsqrt.cpp}
 [
   Tonelli-Shanks algorithm for modular square roots. Finds $x$ s.t. $x^2 = a \pmod p$ ($-x$ gives the other solution).
-  **Time:** O(\log^2 p) worst case, O(\log p) for most $p$
+  \textbf{Time:} $O(\log^2 p)$ worst case, $O(\log p)$ for most $p$
 ]
 
 \codeWithDescription{Discrete Logarithm}{nt/modlog.cpp}[%

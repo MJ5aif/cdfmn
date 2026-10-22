@@ -1,5 +1,5 @@
 int mob[N];
-// Precomputes Mobius function μ(i) for all 1 <= i < N.
+// Precomputes Mobius function mu(i) for all 1 <= i < N.
 void mobius() {
   mob[1] = 1;
   for (int i = 2; i < N; i++){
