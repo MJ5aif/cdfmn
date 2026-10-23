@@ -51,7 +51,10 @@
   morestring=[b]',
 }
 
-% Listings style configuration with zero vertical skips for compact ICPC layout
+% Listings style configuration
+% Note: framesep=2pt + 0.4pt rule extends 2.4pt outside the text box.
+% Setting aboveskip=3.5pt and belowskip=2.4pt reserves exact space for the frame
+% plus ~1pt of breathing room so the border never overlaps text above or below it.
 \lstset{
   language=cpp,
   basicstyle=\ttfamily\footnotesize\color{black},
@@ -74,8 +77,8 @@
   keepspaces=true,
   columns=fullflexible,
   breaklines=true,
-  aboveskip=0pt,
-  belowskip=0pt,
+  aboveskip=3.5pt,
+  belowskip=2.4pt,
   showstringspaces=false,
   literate={*}{{\color{operator}\char42}}1
              {-}{{\color{operator}\char45}}1
@@ -92,9 +95,10 @@
              {\ }{{\copyablespace}}1
 }
 
-% Set column dividers
+% Set column dividers & prevent multicols from stretching vertical gaps
 \setlength{\columnseprule}{0.2pt}
 \setlength{\columnsep}{15pt}
+\raggedcolumns
 
 % Compact TOC
 \renewcommand{\cfttoctitlefont}{\large\bfseries}
@@ -130,16 +134,21 @@
 
 \titlespacing*{\chapter}
  {0pt}
- {1em}
- {0.5em}
+ {6pt}
+ {3pt}
 
-% --- Section style ---
+% --- Section style (Title + crisp rule + tight spacing before & after) ---
 \titleformat{\section}[block]
  {\bfseries\normalsize}
  {}
  {0pt}
  {\thesection\quad}
- [\titleline{\rule{\linewidth}{0.2pt}}]
+ [\vspace{1pt}\titlerule[0.3pt]]
+
+\titlespacing*{\section}
+ {0pt}   % left margin
+ {4pt}   % tiny space after previous code block ends
+ {1.5pt} % tiny space after the horizontal rule before description/code starts
 
 % --- Subsection style ---
 \titleformat{\subsection}[block]
@@ -147,6 +156,11 @@
   {}
   {0pt}
   {\thesubsection\quad}
+
+\titlespacing*{\subsection}
+  {0pt}
+  {3pt}
+  {1pt}
 
 % --- Subsubsection style ---
 \titleformat{\subsubsection}[runin]
@@ -173,7 +187,7 @@
  \fancyhead[R]{\thepage}
 }
 
-% Usage: \code{Title}{folder/file.cpp} (Starts immediately after the section line)
+% Usage: \code{Title}{folder/file.cpp}
 \newcommand{\code}[2]{%
   \section{#1}%
   \lstinputlisting{../code_library/#2}%
@@ -186,16 +200,16 @@
 \NewDocumentCommand{\codeWithDescription}{ m m o o o }{%
   \section{#1}%
   \IfValueT{#3}{%
-    \noindent\begin{minipage}{\linewidth}%
+    {\footnotesize\setlength{\baselineskip}{9.5pt}\emergencystretch=1em%
       % --- Description + optional image ---
       \IfValueTF{#4}{%
         \if\relax\detokenize{#4}\relax
-          \noindent\footnotesize\textbf{Description:} #3\par
+          \noindent\textbf{Description:} #3\strut\par
         \else
           \noindent
           \begin{minipage}[t]{\dimexpr\linewidth-\cwdImgWidth-0.5em\relax}%
             \vspace{0pt}%
-            \footnotesize\textbf{Description:} #3%
+            \footnotesize\textbf{Description:} #3\strut%
           \end{minipage}%
           \hspace{0.3em}%
           \begin{minipage}[t]{\cwdImgWidth}%
@@ -205,16 +219,15 @@
           \par
         \fi
       }{%
-        \noindent\footnotesize\textbf{Description:} #3\par
+        \noindent\textbf{Description:} #3\strut\par
       }%
-      \vspace{0.1em}%
       % --- Optional usage ---
       \IfValueT{#5}{%
-        \noindent\footnotesize\textbf{Usage:}\\
-        \indent\texttt{\footnotesize\detokenize{#5}}\par
+        \vspace{1pt}%
+        \noindent\textbf{Usage:} \texttt{\detokenize{#5}}\strut\par
       }%
-    \end{minipage}%
-    \par\vspace{0.1em}%
+    }%
+    \vspace{1pt}%
   }%
   \lstinputlisting{../code_library/#2}%
 }
