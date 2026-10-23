@@ -23,27 +23,32 @@
 \usepackage[space=true]{accsupp}
 \newcommand{\copyablespace}{\BeginAccSupp{method=hex,unicode,ActualText=00A0}\hphantom{x}\EndAccSupp{}}
 
-% --- Syntax Highlighting Colors ---
-\definecolor{codebg}{rgb}{0.95,0.95,0.95}
-\definecolor{keyword}{rgb}{0.0,0.0,1.0}    % blue
-\definecolor{type}{rgb}{0.0,0.5,0.0}       % green
-\definecolor{stl}{rgb}{0.58,0.0,0.82}      % purple
-\definecolor{comment}{rgb}{0.0,0.5,0.0}    % green
-\definecolor{string}{rgb}{0.8,0.42,0.24}   % orange
-\definecolor{number}{rgb}{0.63,0.13,0.94}  % purple
-\definecolor{function}{rgb}{0.0,0.5,1.0}   % cyan for functions
-\definecolor{operator}{rgb}{1.0,0.0,1.0}   % magenta for operators
+% --- Print-Optimized High-Contrast Color Palette ---
+\definecolor{codebg}{rgb}{0.98, 0.98, 0.985}     % Ultra-clean off-white (no printer toner grain)
+\definecolor{framecolor}{rgb}{0.72, 0.75, 0.78}  % Crisp slate border
+\definecolor{linenum}{rgb}{0.50, 0.53, 0.56}     % Subtle steel gray for line numbers
+\definecolor{keyword}{rgb}{0.00, 0.20, 0.70}     % Deep Royal Blue (#0033B3)
+\definecolor{type}{rgb}{0.00, 0.42, 0.36}        % Rich Emerald Teal (#006B5B)
+\definecolor{stl}{rgb}{0.42, 0.11, 0.60}         % Deep Indigo Purple (#6B1C99)
+\definecolor{function}{rgb}{0.00, 0.35, 0.55}    % Deep Cerulean Blue (#00598C)
+\definecolor{comment}{rgb}{0.24, 0.42, 0.28}     % Muted Forest Green (#3D6B47)
+\definecolor{string}{rgb}{0.65, 0.11, 0.11}      % Brick Crimson (#A61C1C)
+\definecolor{number}{rgb}{0.50, 0.12, 0.65}      % Plum Purple
+\definecolor{operator}{rgb}{0.72, 0.06, 0.30}    % Deep Crimson-Rose (#B80F4D)
 
-% C++ Language Definition with multi-level keywords
+% C++ Language Definition with expanded CP keywords
 \lstdefinelanguage{cpp}{
-  morekeywords=[1]{cin,cout,ios,alignas,std,alignof,asm,auto,break,case,catch,class,const,constexpr,define,memset,
+  morekeywords=[1]{cin,cout,cerr,endl,ios,alignas,std,alignof,asm,auto,break,case,catch,class,const,constexpr,define,ifdef,ifndef,endif,pragma,include,
   continue,decltype,default,delete,do,else,enum,explicit,export,extern,false,for,
   friend,if,inline,mutable,namespace,new,noexcept,nullptr,operator,private,
   protected,public,register,return,static,struct,switch,template,this,throw,true,
-  try,typedef,typeid,typename,using,virtual,void,volatile,while},
-  morekeywords=[2]{stdin,stdout,bool,char,double,float,int,int32_t,int64_t,long,short,signed,unsigned,void,uint64_t},
-  morekeywords=[3]{array,ordered_set,vector,map,set,unordered_map,unordered_set,string,pair,tuple},
-  morekeywords=[4]{foo,cross,freopen,dot,dist,add,maxxor,insert,bxor,update,query,combine,init,find,merge,NULL,custom_hash,rng,z_func,manacher_odd,suffix_array,BitTrie,Hash,Hashing,BIT,BIT2D,RangeBIT,upd,sum},
+  try,typedef,typeid,typename,using,virtual,volatile,while},
+  morekeywords=[2]{stdin,stdout,bool,char,double,float,int,int32_t,int64_t,uint32_t,uint64_t,long,short,signed,unsigned,void,size_t,ll,ull,ld,pii,pll,vi,vll,__int128,__int128_t},
+  morekeywords=[3]{array,ordered_set,vector,map,set,multiset,multimap,unordered_map,unordered_set,string,pair,tuple,deque,queue,priority_queue,stack,bitset,complex},
+  morekeywords=[4]{foo,cross,freopen,memset,dot,dist,add,maxxor,insert,erase,bxor,update,query,combine,pull,push,apply,build,init,find,merge,split,NULL,custom_hash,rng,z_func,manacher_odd,suffix_array,BitTrie,Hash,Hashing,BIT,BIT2D,RangeBIT,segTree,LCT,ST2D,AhoCorasick,Mat,Det,upd,sum,
+  assert,swap,min,max,abs,sort,reverse,lower_bound,upper_bound,unique,fill,iota,accumulate,
+  push_back,emplace_back,pop_back,push_front,pop_front,assign,resize,size,clear,empty,count,begin,end,rbegin,rend,make_pair,make_tuple,tie,
+  __gcd,__lg,__builtin_popcount,__builtin_popcountll,__builtin_clz,__builtin_clzll,__builtin_ctz,__builtin_ctzll,totient,power,modpow,mul,isPrime,pollard,factor},
   sensitive=true,
   morecomment=[l]{//},
   morecomment=[s]{/*}{*/},
@@ -63,14 +68,14 @@
   stringstyle=\color{string},
   backgroundcolor=\color{codebg},
   numbers=left,
-  numberstyle=\tiny\color{gray},
+  numberstyle=\tiny\color{linenum},
   stepnumber=1,
   numbersep=8pt,
   xleftmargin=2em,
   framexleftmargin=2em,
   framesep=2pt,
   frame=single,
-  rulecolor=\color{gray},
+  rulecolor=\color{framecolor},
   keepspaces=true,
   columns=fullflexible,
   breaklines=true,
