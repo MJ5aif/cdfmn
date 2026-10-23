@@ -51,7 +51,7 @@
   morestring=[b]',
 }
 
-% Listings style configuration with zero vertical padding
+% Listings style configuration
 \lstset{
   language=cpp,
   basicstyle=\ttfamily\footnotesize\color{black},
@@ -133,7 +133,7 @@
  {1em}
  {0.5em}
 
-% --- Section style with ultra-tight spacing ---
+% --- Section style ---
 \titleformat{\section}[block]
  {\bfseries\normalsize}
  {}
@@ -142,9 +142,9 @@
  [\titleline{\rule{\linewidth}{0.2pt}}]
 
 \titlespacing*{\section}
- {0pt}   % left margin
- {3pt}   % space before section title (tightened so it starts immediately after previous block)
- {0pt}   % space after rule (starts listing immediately)
+ {0pt}
+ {3pt}
+ {0pt}
 
 % --- Subsection style ---
 \titleformat{\subsection}[block]
@@ -178,21 +178,24 @@
  \fancyhead[R]{\thepage}
 }
 
-% Usage: \code{Title}{folder/file.cpp}
+% Usage: \code{Title}{folder/file.cpp} (Wrapped in minipage to prevent title/code separation)
 \newcommand{\code}[2]{%
-  \section{#1}%
-  \lstinputlisting{../code_library/#2}%
+  \noindent\begin{minipage}{\linewidth}%
+    \section{#1}%
+    \lstinputlisting{../code_library/#2}%
+  \end{minipage}%
+  \par\vspace{2pt}%
 }
 
 \newlength{\cwdImgWidth}
 \setlength{\cwdImgWidth}{0.1\linewidth}
 
-% \codeWithDescription{Title}{filepath}[Description][Image][Usage]
+% \codeWithDescription{Title}{filepath}[Description][Image][Usage] (Wrapped in minipage)
 \NewDocumentCommand{\codeWithDescription}{ m m o o o }{%
-  \section{#1}%
-  \IfValueT{#3}{%
-    \noindent\begin{minipage}{\linewidth}%
-      % --- Description + optional image ---
+  \noindent\begin{minipage}{\linewidth}%
+    \section{#1}%
+    \IfValueT{#3}{%
+      \noindent%
       \IfValueTF{#4}{%
         \if\relax\detokenize{#4}\relax
           \noindent\footnotesize\textbf{Description:} #3\par
@@ -213,13 +216,12 @@
         \noindent\footnotesize\textbf{Description:} #3\par
       }%
       \vspace{0.1em}%
-      % --- Optional usage ---
       \IfValueT{#5}{%
         \noindent\footnotesize\textbf{Usage:}\\
         \indent\texttt{\footnotesize\detokenize{#5}}\par
       }%
-    \end{minipage}%
-    \par\vspace{0.1em}%
-  }%
-  \lstinputlisting{../code_library/#2}%
+    }%
+    \lstinputlisting{../code_library/#2}%
+  \end{minipage}%
+  \par\vspace{2pt}%
 }
