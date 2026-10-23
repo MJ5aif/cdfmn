@@ -18,6 +18,39 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Auto-format Code (2-Space Indent & Strip Blank Lines)
+        run: |
+          sudo apt-get update && sudo apt-get install -y clang-format
+          python3 - << 'EOF'
+          import os, subprocess
+
+          for root, _, files in os.walk("code_library"):
+              for f in files:
+                  path = os.path.join(root, f)
+                  ext = os.path.splitext(f)[1].lower()
+
+                  # 1. Normalize C/C++ indentation to 2 spaces using clang-format
+                  if ext in {".cpp", ".h", ".hpp"}:
+                      subprocess.run([
+                          "clang-format", "-i",
+                          "-style={BasedOnStyle: Google, IndentWidth: 2, TabWidth: 2, UseTab: Never, ColumnLimit: 0, AllowShortFunctionsOnASingleLine: All, AllowShortIfStatementsOnASingleLine: Always, AllowShortLoopsOnASingleLine: true}",
+                          path
+                      ], check=False)
+
+                  # 2. Strip all empty / whitespace-only lines across all code files
+                  try:
+                      with open(path, "r", encoding="utf-8", errors="ignore") as file:
+                          lines = file.readlines()
+                      cleaned = [
+                          line.replace("\t", "  ").rstrip() + "\n"
+                          for line in lines if line.strip() != ""
+                      ]
+                      with open(path, "w", encoding="utf-8") as file:
+                          file.writelines(cleaned)
+                  except Exception as e:
+                      print(f"Skipped {path}: {e}")
+          EOF
+
       - name: Compile LaTeX
         uses: xu-cheng/latex-action@v3
         with:
