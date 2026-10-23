@@ -51,7 +51,7 @@
   morestring=[b]',
 }
 
-% Listings style configuration
+% Listings style configuration with zero vertical skips for compact ICPC layout
 \lstset{
   language=cpp,
   basicstyle=\ttfamily\footnotesize\color{black},
@@ -141,11 +141,6 @@
  {\thesection\quad}
  [\titleline{\rule{\linewidth}{0.2pt}}]
 
-\titlespacing*{\section}
- {0pt}
- {3pt}
- {0pt}
-
 % --- Subsection style ---
 \titleformat{\subsection}[block]
   {\bfseries\small}
@@ -178,24 +173,21 @@
  \fancyhead[R]{\thepage}
 }
 
-% Usage: \code{Title}{folder/file.cpp} (Wrapped in minipage to prevent title/code separation)
+% Usage: \code{Title}{folder/file.cpp} (Starts immediately after the section line)
 \newcommand{\code}[2]{%
-  \noindent\begin{minipage}{\linewidth}%
-    \section{#1}%
-    \lstinputlisting{../code_library/#2}%
-  \end{minipage}%
-  \par\vspace{2pt}%
+  \section{#1}%
+  \lstinputlisting{../code_library/#2}%
 }
 
 \newlength{\cwdImgWidth}
 \setlength{\cwdImgWidth}{0.1\linewidth}
 
-% \codeWithDescription{Title}{filepath}[Description][Image][Usage] (Wrapped in minipage)
+% \codeWithDescription{Title}{filepath}[Description][Image][Usage]
 \NewDocumentCommand{\codeWithDescription}{ m m o o o }{%
-  \noindent\begin{minipage}{\linewidth}%
-    \section{#1}%
-    \IfValueT{#3}{%
-      \noindent%
+  \section{#1}%
+  \IfValueT{#3}{%
+    \noindent\begin{minipage}{\linewidth}%
+      % --- Description + optional image ---
       \IfValueTF{#4}{%
         \if\relax\detokenize{#4}\relax
           \noindent\footnotesize\textbf{Description:} #3\par
@@ -216,12 +208,13 @@
         \noindent\footnotesize\textbf{Description:} #3\par
       }%
       \vspace{0.1em}%
+      % --- Optional usage ---
       \IfValueT{#5}{%
         \noindent\footnotesize\textbf{Usage:}\\
         \indent\texttt{\footnotesize\detokenize{#5}}\par
       }%
-    }%
-    \lstinputlisting{../code_library/#2}%
-  \end{minipage}%
-  \par\vspace{2pt}%
+    \end{minipage}%
+    \par\vspace{0.1em}%
+  }%
+  \lstinputlisting{../code_library/#2}%
 }
