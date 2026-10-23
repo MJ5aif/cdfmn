@@ -17,31 +17,36 @@
 \usepackage{xparse}
 \usepackage{wrapfig}
 
+% --- Codeforces Style Syntax Highlighting ---
 \usepackage{listings}
 \usepackage{xcolor}
 
-% For colorful output.
-% Color definitions
-\definecolor{cpcomment}{RGB}{34, 139, 34}      % Green
-\definecolor{cpkeyword}{RGB}{0, 0, 255}        % Blue
-\definecolor{cpstring}{RGB}{163, 21, 21}       % Red/Brown
-\definecolor{cpnumber}{RGB}{120, 120, 120}     % Gray
+% Define Codeforces-inspired colors
+\definecolor{cfkeyword}{rgb}{0.0, 0.0, 0.5}      % Deep Blue for keywords (int, for, return, etc.)
+\definecolor{cftype}{rgb}{0.0, 0.3, 0.5}         % Teal/Cyan for types & structures
+\definecolor{cfcomment}{rgb}{0.0, 0.5, 0.0}      % Green for comments
+\definecolor{cfstring}{rgb}{0.6, 0.0, 0.0}       % Red/Burgundy for strings
+\definecolor{cfnumber}{rgb}{0.5, 0.0, 0.5}       % Purple for numbers
+\definecolor{cfbackground}{rgb}{0.97, 0.97, 0.97} % Soft light grey background
 
 \lstset{
     language=C++,
-    basicstyle=\ttfamily\scriptsize,           % Compact code size
-    keywordstyle=\color{cpkeyword}\bfseries,
-    commentstyle=\color{cpcomment}\itshape,
-    stringstyle=\color{cpstring},
-    numberstyle=\tiny\color{cpnumber},
-    numbers=left,
-    numbersep=5pt,
-    tabsize=2,
+    basicstyle=\ttfamily\tiny,
+    keywordstyle=\bfseries\color{cfkeyword},
+    commentstyle=\itshape\color{cfcomment},
+    stringstyle=\color{cfstring},
+    identifierstyle=\color{black},
+    backgroundcolor=\color{cfbackground},
     breaklines=true,
-    breakatwhitespace=false,
+    breakatwhitespace=true,
+    tabsize=2,
     showstringspaces=false,
+    showtabs=false,
+    columns=flexible,
     keepspaces=true,
-    columns=flexible
+    upquote=true,
+    % Add custom CP shortcuts / data types if you want them highlighted
+    morekeywords={vector, pair, make_pair, pb, eb, all, sz, int64_t, uint64_t, ll, ld}
 }
 
 % Define a color for codes
