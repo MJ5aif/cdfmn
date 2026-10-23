@@ -23,7 +23,7 @@
 \usepackage[space=true]{accsupp}
 \newcommand{\copyablespace}{\BeginAccSupp{method=hex,unicode,ActualText=00A0}\hphantom{x}\EndAccSupp{}}
 
-% --- Syntax Highlighting Colors ---
+% --- Syntax Highlighting Colors (Your Intended Style) ---
 \definecolor{codebg}{rgb}{0.95,0.95,0.95}
 \definecolor{keyword}{rgb}{0.0,0.0,1.0}    % blue
 \definecolor{type}{rgb}{0.0,0.5,0.0}       % green
@@ -51,10 +51,10 @@
   morestring=[b]',
 }
 
-% Listings style configuration with line numbers & slightly larger font (\scriptsize)
+% Listings style configuration matching your intended style (Boxed Frame + Line Numbers)
 \lstset{
   language=cpp,
-  basicstyle=\ttfamily\scriptsize\color{black},
+  basicstyle=\ttfamily\footnotesize\color{black},
   keywordstyle=[1]\color{keyword}\bfseries,
   keywordstyle=[2]\color{type}\bfseries,
   keywordstyle=[3]\color{stl}\bfseries,
@@ -62,20 +62,21 @@
   commentstyle=\color{comment}\itshape,
   stringstyle=\color{string},
   backgroundcolor=\color{codebg},
-  keepspaces=true,
-  columns=fullflexible,
-  breaklines=true,
-  breakatwhitespace=false,
-  tabsize=2,
-  showstringspaces=false,
-  emptylines=*0,
   numbers=left,
   numberstyle=\tiny\color{gray},
   stepnumber=1,
-  numbersep=4pt,
-  aboveskip=5pt,
-  linewidth=\linewidth,
-  xrightmargin=2pt,
+  numbersep=8pt,
+  xleftmargin=2em,
+  framexleftmargin=2em,
+  framesep=2pt,
+  frame=single,
+  rulecolor=\color{gray},
+  keepspaces=true,
+  columns=fullflexible,
+  breaklines=true,
+  aboveskip=1pt,
+  belowskip=1pt,
+  showstringspaces=false,
   literate={*}{{\color{operator}\char42}}1
              {-}{{\color{operator}\char45}}1
              {+}{{\color{operator}+}}1
@@ -92,23 +93,22 @@
 }
 
 % Set column dividers
-\setlength{\columnseprule}{0.2pt} % Multicol separation line width
-\setlength{\columnsep}{15pt} % Multicol separation margin
+\setlength{\columnseprule}{0.2pt}
+\setlength{\columnsep}{15pt}
 
 % Compact TOC
-\renewcommand{\cfttoctitlefont}{\large\bfseries} % small TOC title
-\renewcommand{\contentsname}{} % remove "Contents"
+\renewcommand{\cfttoctitlefont}{\large\bfseries}
+\renewcommand{\contentsname}{}
 \setcounter{tocdepth}{1}
-\setlength{\cftsecnumwidth}{2.7em}      % Width for section numbers
+\setlength{\cftsecnumwidth}{2.7em}
 
 \hypersetup{
-    colorlinks=true,      % False: boxed links; True: colored text
-    linkcolor=black,      % For a codebook, black is best for printing
-    urlcolor=blue,        % Keep URLs blue if you have them
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
     pdftitle={code_dont_f4il_now},
 }
 
-% Author block
 \setlength{\cftbeforetoctitleskip}{-1em}
 \setlength{\cftaftertoctitleskip}{0em}
 
