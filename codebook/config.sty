@@ -52,9 +52,6 @@
 }
 
 % Listings style configuration
-% Note: framesep=2pt + 0.4pt rule extends 2.4pt outside the text box.
-% Setting aboveskip=3.5pt and belowskip=2.4pt reserves exact space for the frame
-% plus ~1pt of breathing room so the border never overlaps text above or below it.
 \lstset{
   language=cpp,
   basicstyle=\ttfamily\footnotesize\color{black},
@@ -77,8 +74,8 @@
   keepspaces=true,
   columns=fullflexible,
   breaklines=true,
-  aboveskip=3.5pt,
-  belowskip=2.4pt,
+  aboveskip=2pt,
+  belowskip=2pt,
   showstringspaces=false,
   literate={*}{{\color{operator}\char42}}1
              {-}{{\color{operator}\char45}}1
@@ -137,18 +134,18 @@
  {6pt}
  {3pt}
 
-% --- Section style (Title + crisp rule + tight spacing before & after) ---
+% --- Section style ---
 \titleformat{\section}[block]
  {\bfseries\normalsize}
  {}
  {0pt}
  {\thesection\quad}
- [\vspace{1pt}\titlerule[0.3pt]]
+ [\titleline{\rule{\linewidth}{0.2pt}}]
 
 \titlespacing*{\section}
- {0pt}   % left margin
- {4pt}   % tiny space after previous code block ends
- {1.5pt} % tiny space after the horizontal rule before description/code starts
+ {0pt}
+ {4pt}
+ {2pt}
 
 % --- Subsection style ---
 \titleformat{\subsection}[block]
@@ -200,16 +197,16 @@
 \NewDocumentCommand{\codeWithDescription}{ m m o o o }{%
   \section{#1}%
   \IfValueT{#3}{%
-    {\footnotesize\setlength{\baselineskip}{9.5pt}\emergencystretch=1em%
+    \noindent\begin{minipage}{\linewidth}%
       % --- Description + optional image ---
       \IfValueTF{#4}{%
         \if\relax\detokenize{#4}\relax
-          \noindent\textbf{Description:} #3\strut\par
+          \noindent\footnotesize\textbf{Description:} #3\par
         \else
           \noindent
           \begin{minipage}[t]{\dimexpr\linewidth-\cwdImgWidth-0.5em\relax}%
             \vspace{0pt}%
-            \footnotesize\textbf{Description:} #3\strut%
+            \footnotesize\textbf{Description:} #3%
           \end{minipage}%
           \hspace{0.3em}%
           \begin{minipage}[t]{\cwdImgWidth}%
@@ -219,15 +216,16 @@
           \par
         \fi
       }{%
-        \noindent\textbf{Description:} #3\strut\par
+        \noindent\footnotesize\textbf{Description:} #3\par
       }%
+      \vspace{0.1em}%
       % --- Optional usage ---
       \IfValueT{#5}{%
-        \vspace{1pt}%
-        \noindent\textbf{Usage:} \texttt{\detokenize{#5}}\strut\par
+        \noindent\footnotesize\textbf{Usage:}\\
+        \indent\texttt{\footnotesize\detokenize{#5}}\par
       }%
-    }%
-    \vspace{1pt}%
+    \end{minipage}%
+    \par\vspace{4pt}%
   }%
   \lstinputlisting{../code_library/#2}%
 }
