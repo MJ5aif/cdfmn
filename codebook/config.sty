@@ -51,7 +51,7 @@
   morestring=[b]',
 }
 
-% Listings style configuration with zero vertical skips for compact ICPC layout
+% Listings style configuration with zero vertical padding
 \lstset{
   language=cpp,
   basicstyle=\ttfamily\footnotesize\color{black},
@@ -133,13 +133,18 @@
  {1em}
  {0.5em}
 
-% --- Section style ---
+% --- Section style with ultra-tight spacing ---
 \titleformat{\section}[block]
  {\bfseries\normalsize}
  {}
  {0pt}
  {\thesection\quad}
  [\titleline{\rule{\linewidth}{0.2pt}}]
+
+\titlespacing*{\section}
+ {0pt}   % left margin
+ {3pt}   % space before section title (tightened so it starts immediately after previous block)
+ {0pt}   % space after rule (starts listing immediately)
 
 % --- Subsection style ---
 \titleformat{\subsection}[block]
@@ -173,7 +178,7 @@
  \fancyhead[R]{\thepage}
 }
 
-% Usage: \code{Title}{folder/file.cpp} (Starts immediately after the section line)
+% Usage: \code{Title}{folder/file.cpp}
 \newcommand{\code}[2]{%
   \section{#1}%
   \lstinputlisting{../code_library/#2}%
