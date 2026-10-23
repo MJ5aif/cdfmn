@@ -23,7 +23,7 @@
 \usepackage[space=true]{accsupp}
 \newcommand{\copyablespace}{\BeginAccSupp{method=hex,unicode,ActualText=00A0}\hphantom{x}\EndAccSupp{}}
 
-% --- Syntax Highlighting Colors (Your Intended Style) ---
+% --- Syntax Highlighting Colors ---
 \definecolor{codebg}{rgb}{0.95,0.95,0.95}
 \definecolor{keyword}{rgb}{0.0,0.0,1.0}    % blue
 \definecolor{type}{rgb}{0.0,0.5,0.0}       % green
@@ -51,7 +51,7 @@
   morestring=[b]',
 }
 
-% Listings style configuration matching your intended style (Boxed Frame + Line Numbers)
+% Listings style configuration
 \lstset{
   language=cpp,
   basicstyle=\ttfamily\footnotesize\color{black},
@@ -74,8 +74,8 @@
   keepspaces=true,
   columns=fullflexible,
   breaklines=true,
-  aboveskip=1pt,
-  belowskip=1pt,
+  aboveskip=2pt,
+  belowskip=2pt,
   showstringspaces=false,
   literate={*}{{\color{operator}\char42}}1
              {-}{{\color{operator}\char45}}1
@@ -173,20 +173,21 @@
  \fancyhead[R]{\thepage}
 }
 
-% Usage: \code{Title}{folder/file.cpp}
+% Usage: \code{Title}{folder/file.cpp} (Fixed spacing so it doesn't merge with the title rule)
 \newcommand{\code}[2]{%
   \section{#1}
-  \vspace{-1em}
+  \vspace{0.3em}%
   \lstinputlisting{../code_library/#2}%
+  \vspace{0.3em}%
 }
 
 \newlength{\cwdImgWidth}
 \setlength{\cwdImgWidth}{0.1\linewidth}
 
-% \codeWithDescription{Title}{filepath}[Description][Image][Usage]
+% \codeWithDescription{Title}{filepath}[Description][Image][Usage] (Fixed spacing)
 \NewDocumentCommand{\codeWithDescription}{ m m o o o }{%
   \section{#1}%
-  \vspace{-0.5em}%
+  \vspace{0.3em}%
   %
   \IfValueT{#3}{%
     \noindent\begin{minipage}{\linewidth}%
@@ -218,12 +219,12 @@
         \vspace{0.2em}%
       }%
     \end{minipage}%
-    \par\vspace{0.2em}%
+    \par\vspace{0.3em}%
   }%
   %
   \noindent{\color{lightgray}\rule{\linewidth}{0.2pt}}%
-  \vspace*{-0.5em}%
+  \vspace{0.3em}%
   \lstinputlisting{../code_library/#2}%
-  \vspace*{-1.5em}%
+  \vspace{0.5em}%
   \par
 }
