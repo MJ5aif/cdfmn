@@ -92,7 +92,8 @@
   aboveskip=2pt,
   belowskip=2pt,
   showstringspaces=false,
-  literate={*}{{\color{operator}\char42}}1
+  % Apply operator replacements only in code, preserving comment delimiters.
+  literate=*{*}{{\color{operator}\char42}}1
              {-}{{\color{operator}\char45}}1
              {+}{{\color{operator}+}}1
              {=}{{\color{operator}\char61}}1
