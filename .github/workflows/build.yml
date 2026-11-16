@@ -56,7 +56,8 @@ jobs:
         with:
           working_directory: codebook
           root_file: codebook.tex
-          args: -pdf -synctex=1 -interaction=nonstopmode
+          latexmk_use_xelatex: true
+          args: -xelatex -synctex=1 -interaction=nonstopmode
 
       - name: Commit and Push PDF
         run: |

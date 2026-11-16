@@ -21,6 +21,7 @@ codebook/codebook.pdf
 *.ind
 *.xdy
 *.dvi
+*.xdv
 *.gz
 *.synctex
 

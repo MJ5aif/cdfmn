@@ -35,7 +35,7 @@ All code must be formatted to ensure it fits correctly with minimum required spa
 ## 🛠 Prerequisites
 
 To build the codebook locally, ensure you have:
-* **LaTeX Distribution**: TeX Live, MiKTeX, or MacTeX.
+* **LaTeX Distribution**: TeX Live, MiKTeX, or MacTeX with XeLaTeX and `fontspec`.
 * **Clang-Format**: For consistent code styling.
 * **Git**: For version control.
 
@@ -49,8 +49,13 @@ You can compile the codebook using the command line or a dedicated LaTeX editor.
 Run the following command from the root directory to handle all passes (Table of Contents, SyncTeX, and Bibliography) automatically:
 ```bash
 cd codebook
-latexmk -pdf -synctex=1 -interaction=nonstopmode codebook.tex
+latexmk -xelatex -synctex=1 -interaction=nonstopmode codebook.tex
 ```
+
+Code listings use JetBrains Mono Nerd Font Mono, matching the team's VS Code font.
+The regular, bold, italic, and bold italic font files are bundled in
+`codebook/fonts/JetBrainsMono/`, so no system font installation is required.
+GitHub Actions also uses XeLaTeX to build with these fonts.
 
 ### Reset the cache 
 Sometimes, build failure will generate cache and the cache needs to be resetted in order to do a correct compilation.

@@ -18,7 +18,17 @@
 \usepackage{wrapfig}
 
 % Copyable spaces support
-\usepackage[T1]{fontenc}
+% Use the same JetBrains Mono variant as the team's VS Code setup.
+% Bundled fonts keep local and GitHub Actions builds consistent (XeLaTeX).
+\usepackage{fontspec}
+\setmonofont{JetBrainsMonoNerdFontMono}[
+  Path=fonts/JetBrainsMono/,
+  Extension=.ttf,
+  UprightFont=*-Regular,
+  BoldFont=*-Bold,
+  ItalicFont=*-Italic,
+  BoldItalicFont=*-BoldItalic
+]
 \usepackage{textcomp}
 \usepackage[space=true]{accsupp}
 \newcommand{\copyablespace}{\BeginAccSupp{method=hex,unicode,ActualText=00A0}\hphantom{x}\EndAccSupp{}}
